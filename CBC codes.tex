@@ -1,0 +1,910 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Madhume\_Evidence\_HW1},
+  pdfauthor={Evidence Madhume},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Madhume\_Evidence\_HW1}
+\author{Evidence Madhume}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ knitr}\SpecialCharTok{::}\NormalTok{opts\_chunk}\SpecialCharTok{$}\FunctionTok{set}\NormalTok{(}\AttributeTok{echo =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyr)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(readxl)}
+
+
+\NormalTok{cbc }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{read\_excel}\NormalTok{(}\StringTok{"C:}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Users}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{actua}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{OneDrive}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{SMU {-} MSBA 2024}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Programming for Analytics {-} ITOM 6253}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Assignment 1}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Charles\_BookClub\_modified.xls"}\NormalTok{))}
+\NormalTok{cbc }\OtherTok{\textless{}{-}}\NormalTok{ cbc[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{18}\NormalTok{] }
+ \FunctionTok{str}\NormalTok{(cbc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    2000 obs. of  18 variables:
+##  $ Seq       : num  1 2 3 4 5 6 7 8 9 10 ...
+##  $ ID        : num  2 30 59 89 96 120 128 131 139 177 ...
+##  $ Gender    : num  0 1 1 1 0 1 1 1 1 1 ...
+##  $ M         : chr  "138" "240" "97" "348" ...
+##  $ R         : chr  "28" "14" "6" "2" ...
+##  $ F         : num  3 1 2 7 2 4 1 2 3 12 ...
+##  $ FirstPurch: num  40 14 10 38 28 20 16 22 20 58 ...
+##  $ ChildBks  : num  0 1 0 1 0 1 0 0 1 4 ...
+##  $ YouthBks  : num  1 0 0 1 0 0 1 1 0 1 ...
+##  $ CookBks   : num  0 0 0 1 1 0 0 0 0 4 ...
+##  $ DoltYBks  : num  1 0 0 0 0 0 0 0 1 0 ...
+##  $ RefBks    : num  0 0 0 1 0 0 0 1 0 0 ...
+##  $ ArtBks    : num  0 0 0 0 0 1 0 0 0 0 ...
+##  $ GeogBks   : num  1 0 0 1 1 0 0 0 0 2 ...
+##  $ ItalCook  : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ ItalHAtlas: num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ ItalArt   : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Florence  : num  0 0 0 0 0 1 0 0 0 0 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(cbc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Seq               ID            Gender            M            
+##  Min.   :   1.0   Min.   :    2   Min.   :0.0000   Length:2000       
+##  1st Qu.: 500.8   1st Qu.:12699   1st Qu.:0.0000   Class :character  
+##  Median :1000.5   Median :24201   Median :1.0000   Mode  :character  
+##  Mean   :1000.5   Mean   :24753   Mean   :0.7085                     
+##  3rd Qu.:1500.2   3rd Qu.:37300   3rd Qu.:1.0000                     
+##  Max.   :2000.0   Max.   :49962   Max.   :1.0000                     
+##       R                   F            FirstPurch       ChildBks    
+##  Length:2000        Min.   : 1.000   Min.   : 2.00   Min.   :0.000  
+##  Class :character   1st Qu.: 1.000   1st Qu.:14.00   1st Qu.:0.000  
+##  Mode  :character   Median : 2.000   Median :22.00   Median :0.000  
+##                     Mean   : 4.005   Mean   :27.42   Mean   :0.711  
+##                     3rd Qu.: 6.000   3rd Qu.:38.00   3rd Qu.:1.000  
+##                     Max.   :12.000   Max.   :99.00   Max.   :6.000  
+##     YouthBks        CookBks          DoltYBks         RefBks      
+##  Min.   :0.000   Min.   :0.0000   Min.   :0.000   Min.   :0.0000  
+##  1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.0000  
+##  Median :0.000   Median :0.0000   Median :0.000   Median :0.0000  
+##  Mean   :0.314   Mean   :0.7385   Mean   :0.391   Mean   :0.2705  
+##  3rd Qu.:0.000   3rd Qu.:1.0000   3rd Qu.:1.000   3rd Qu.:0.0000  
+##  Max.   :5.000   Max.   :8.0000   Max.   :5.000   Max.   :4.0000  
+##      ArtBks          GeogBks          ItalCook        ItalHAtlas    
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000  
+##  Mean   :0.3145   Mean   :0.4115   Mean   :0.1285   Mean   :0.0395  
+##  3rd Qu.:0.0000   3rd Qu.:1.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+##  Max.   :5.0000   Max.   :5.0000   Max.   :2.0000   Max.   :2.0000  
+##     ItalArt         Florence     
+##  Min.   :0.000   Min.   :0.0000  
+##  1st Qu.:0.000   1st Qu.:0.0000  
+##  Median :0.000   Median :0.0000  
+##  Mean   :0.052   Mean   :0.1085  
+##  3rd Qu.:0.000   3rd Qu.:0.0000  
+##  Max.   :2.000   Max.   :1.0000
+\end{verbatim}
+
+\paragraph{Count the unique values of each
+variable.}\label{count-the-unique-values-of-each-variable.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cbc\_counts }\OtherTok{\textless{}{-}}\NormalTok{ cbc }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarise\_all}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \FunctionTok{n\_distinct}\NormalTok{(.))}
+\NormalTok{cbc\_counts}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Seq   ID Gender   M  R  F FirstPurch ChildBks YouthBks CookBks DoltYBks
+## 1 2000 2000      2 421 19 12         47        7        6       9        6
+##   RefBks ArtBks GeogBks ItalCook ItalHAtlas ItalArt Florence
+## 1      5      6       6        3          3       3        2
+\end{verbatim}
+
+\paragraph{Convert Gender and Florence to
+Factors}\label{convert-gender-and-florence-to-factors}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cbc}\SpecialCharTok{$}\NormalTok{Gender }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(cbc}\SpecialCharTok{$}\NormalTok{Gender, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{labels =}  \FunctionTok{c}\NormalTok{(}\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{))}
+
+\NormalTok{cbc}\SpecialCharTok{$}\NormalTok{Florence }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(cbc}\SpecialCharTok{$}\NormalTok{Florence, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{labels =}  \FunctionTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{Identify the numeric columns for which outlier detection is
+desired}\label{identify-the-numeric-columns-for-which-outlier-detection-is-desired}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Check if the columns M and R exist in the data frame}
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\NormalTok{(}\StringTok{"M"} \SpecialCharTok{\%in\%} \FunctionTok{names}\NormalTok{(cbc)) }\SpecialCharTok{||} \SpecialCharTok{!}\NormalTok{(}\StringTok{"R"} \SpecialCharTok{\%in\%} \FunctionTok{names}\NormalTok{(cbc))) \{}
+  \FunctionTok{stop}\NormalTok{(}\StringTok{"Columns M and R do not exist in the data frame."}\NormalTok{)}
+\NormalTok{\}}
+
+\CommentTok{\# Check the types of M and R}
+\NormalTok{is\_numeric\_M }\OtherTok{\textless{}{-}} \FunctionTok{is.numeric}\NormalTok{(cbc}\SpecialCharTok{$}\NormalTok{M)}
+\NormalTok{is\_numeric\_R }\OtherTok{\textless{}{-}} \FunctionTok{is.numeric}\NormalTok{(cbc}\SpecialCharTok{$}\NormalTok{R)}
+
+\CommentTok{\# Print results}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Is column M numeric? "}\NormalTok{, is\_numeric\_M, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Is column M numeric?  FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Is column R numeric? "}\NormalTok{, is\_numeric\_R, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Is column R numeric?  FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# If both are numeric, you can proceed with outlier detection}
+\ControlFlowTok{if}\NormalTok{ (is\_numeric\_M }\SpecialCharTok{\&\&}\NormalTok{ is\_numeric\_R) \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Both columns M and R are numeric. Proceed with outlier detection.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"One or both columns are not numeric. Please check the data types.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## One or both columns are not numeric. Please check the data types.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{outvars }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"M"}\NormalTok{, }\StringTok{"R"}\NormalTok{, }\StringTok{"F"}\NormalTok{, }\StringTok{"FirstPurch"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{Find outliers and set them to
+missing}\label{find-outliers-and-set-them-to-missing}
+
+Note the use of the \emph{anonymous} function in the following code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Checking for non{-}numeric values in columns M and R}
+\NormalTok{cbc}\SpecialCharTok{$}\NormalTok{M }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(cbc}\SpecialCharTok{$}\NormalTok{M)  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: NAs introduced by coercion
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cbc}\SpecialCharTok{$}\NormalTok{R }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(cbc}\SpecialCharTok{$}\NormalTok{R)  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: NAs introduced by coercion
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cbc}\SpecialCharTok{$}\NormalTok{M[cbc}\SpecialCharTok{$}\NormalTok{M }\SpecialCharTok{\textless{}=} \DecValTok{0}\NormalTok{] }\OtherTok{\textless{}{-}} \ConstantTok{NA}  
+
+\CommentTok{\# Printing of NA values }
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Number of NA values in M:"}\NormalTok{, }\FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(cbc}\SpecialCharTok{$}\NormalTok{M)), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Number of NA values in M: 25
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Number of NA values in R:"}\NormalTok{, }\FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(cbc}\SpecialCharTok{$}\NormalTok{R)), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Number of NA values in R: 6
+\end{verbatim}
+
+\paragraph{Summary also counts the number of missing
+values}\label{summary-also-counts-the-number-of-missing-values}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(cbc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Seq               ID           Gender           M               R        
+##  Min.   :   1.0   Min.   :    2   Female: 583   Min.   : 15.0   Min.   : 2.00  
+##  1st Qu.: 500.8   1st Qu.:12699   Male  :1417   1st Qu.:126.5   1st Qu.: 8.00  
+##  Median :1000.5   Median :24201                 Median :207.0   Median :12.00  
+##  Mean   :1000.5   Mean   :24753                 Mean   :206.8   Mean   :13.52  
+##  3rd Qu.:1500.2   3rd Qu.:37300                 3rd Qu.:281.5   3rd Qu.:16.00  
+##  Max.   :2000.0   Max.   :49962                 Max.   :477.0   Max.   :36.00  
+##                                                 NA's   :25      NA's   :6      
+##        F            FirstPurch       ChildBks        YouthBks    
+##  Min.   : 1.000   Min.   : 2.00   Min.   :0.000   Min.   :0.000  
+##  1st Qu.: 1.000   1st Qu.:14.00   1st Qu.:0.000   1st Qu.:0.000  
+##  Median : 2.000   Median :22.00   Median :0.000   Median :0.000  
+##  Mean   : 4.005   Mean   :27.42   Mean   :0.711   Mean   :0.314  
+##  3rd Qu.: 6.000   3rd Qu.:38.00   3rd Qu.:1.000   3rd Qu.:0.000  
+##  Max.   :12.000   Max.   :99.00   Max.   :6.000   Max.   :5.000  
+##                                                                  
+##     CookBks          DoltYBks         RefBks           ArtBks      
+##  Min.   :0.0000   Min.   :0.000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :0.0000   Median :0.000   Median :0.0000   Median :0.0000  
+##  Mean   :0.7385   Mean   :0.391   Mean   :0.2705   Mean   :0.3145  
+##  3rd Qu.:1.0000   3rd Qu.:1.000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+##  Max.   :8.0000   Max.   :5.000   Max.   :4.0000   Max.   :5.0000  
+##                                                                    
+##     GeogBks          ItalCook        ItalHAtlas        ItalArt      Florence  
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.000   No :1783  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.000   Yes: 217  
+##  Median :0.0000   Median :0.0000   Median :0.0000   Median :0.000             
+##  Mean   :0.4115   Mean   :0.1285   Mean   :0.0395   Mean   :0.052             
+##  3rd Qu.:1.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.000             
+##  Max.   :5.0000   Max.   :2.0000   Max.   :2.0000   Max.   :2.000             
+## 
+\end{verbatim}
+
+\paragraph{Identify variables for which imputation of missing values is
+desired}\label{identify-variables-for-which-imputation-of-missing-values-is-desired}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# find it in all data frames }
+\NormalTok{missvars }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(cbc, }\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(x)))}
+
+\CommentTok{\# (the values are missing in the columns)}
+\NormalTok{vars\_with\_na }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(missvars[missvars }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{])}
+
+\CommentTok{\# Printing of columns that need imputation  }
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Columns with missing values that require imputation:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Columns with missing values that require imputation:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(vars\_with\_na)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "M" "R"
+\end{verbatim}
+
+\paragraph{Impute missing values of columns with missing
+values}\label{impute-missing-values-of-columns-with-missing-values}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cbc}\SpecialCharTok{$}\NormalTok{M[}\FunctionTok{is.na}\NormalTok{(cbc}\SpecialCharTok{$}\NormalTok{M)] }\OtherTok{\textless{}{-}} \FunctionTok{median}\NormalTok{(cbc}\SpecialCharTok{$}\NormalTok{M, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)  }
+\NormalTok{cbc}\SpecialCharTok{$}\NormalTok{R[}\FunctionTok{is.na}\NormalTok{(cbc}\SpecialCharTok{$}\NormalTok{R)] }\OtherTok{\textless{}{-}} \FunctionTok{median}\NormalTok{(cbc}\SpecialCharTok{$}\NormalTok{R, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)  }
+
+\FunctionTok{summary}\NormalTok{(cbc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Seq               ID           Gender           M               R        
+##  Min.   :   1.0   Min.   :    2   Female: 583   Min.   : 15.0   Min.   : 2.00  
+##  1st Qu.: 500.8   1st Qu.:12699   Male  :1417   1st Qu.:127.8   1st Qu.: 8.00  
+##  Median :1000.5   Median :24201                 Median :207.0   Median :12.00  
+##  Mean   :1000.5   Mean   :24753                 Mean   :206.8   Mean   :13.52  
+##  3rd Qu.:1500.2   3rd Qu.:37300                 3rd Qu.:280.0   3rd Qu.:16.00  
+##  Max.   :2000.0   Max.   :49962                 Max.   :477.0   Max.   :36.00  
+##        F            FirstPurch       ChildBks        YouthBks    
+##  Min.   : 1.000   Min.   : 2.00   Min.   :0.000   Min.   :0.000  
+##  1st Qu.: 1.000   1st Qu.:14.00   1st Qu.:0.000   1st Qu.:0.000  
+##  Median : 2.000   Median :22.00   Median :0.000   Median :0.000  
+##  Mean   : 4.005   Mean   :27.42   Mean   :0.711   Mean   :0.314  
+##  3rd Qu.: 6.000   3rd Qu.:38.00   3rd Qu.:1.000   3rd Qu.:0.000  
+##  Max.   :12.000   Max.   :99.00   Max.   :6.000   Max.   :5.000  
+##     CookBks          DoltYBks         RefBks           ArtBks      
+##  Min.   :0.0000   Min.   :0.000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :0.0000   Median :0.000   Median :0.0000   Median :0.0000  
+##  Mean   :0.7385   Mean   :0.391   Mean   :0.2705   Mean   :0.3145  
+##  3rd Qu.:1.0000   3rd Qu.:1.000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+##  Max.   :8.0000   Max.   :5.000   Max.   :4.0000   Max.   :5.0000  
+##     GeogBks          ItalCook        ItalHAtlas        ItalArt      Florence  
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.000   No :1783  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.000   Yes: 217  
+##  Median :0.0000   Median :0.0000   Median :0.0000   Median :0.000             
+##  Mean   :0.4115   Mean   :0.1285   Mean   :0.0395   Mean   :0.052             
+##  3rd Qu.:1.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.000             
+##  Max.   :5.0000   Max.   :2.0000   Max.   :2.0000   Max.   :2.000
+\end{verbatim}
+
+\paragraph{Delete rows for which there are no books
+purchased.}\label{delete-rows-for-which-there-are-no-books-purchased.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cbc\_no\_purchase }\OtherTok{\textless{}{-}}\NormalTok{ cbc[}\FunctionTok{rowSums}\NormalTok{(cbc[}\DecValTok{8}\SpecialCharTok{:} \DecValTok{14}\NormalTok{] }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{, ]}
+\FunctionTok{summary}\NormalTok{(cbc\_no\_purchase)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Seq             ID           Gender           M               R        
+##  Min.   :   1   Min.   :    2   Female: 451   Min.   : 15.0   Min.   : 2.00  
+##  1st Qu.: 514   1st Qu.:13139   Male  :1070   1st Qu.:147.0   1st Qu.:10.00  
+##  Median :1013   Median :24499                 Median :218.0   Median :14.00  
+##  Mean   :1004   Mean   :24839                 Mean   :220.3   Mean   :15.64  
+##  3rd Qu.:1493   3rd Qu.:37054                 3rd Qu.:293.0   3rd Qu.:20.00  
+##  Max.   :1999   Max.   :49914                 Max.   :477.0   Max.   :36.00  
+##        F            FirstPurch       ChildBks         YouthBks     
+##  Min.   : 1.000   Min.   :14.00   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.: 2.000   1st Qu.:18.00   1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median : 3.000   Median :30.00   Median :1.0000   Median :0.0000  
+##  Mean   : 4.839   Mean   :33.44   Mean   :0.9349   Mean   :0.4129  
+##  3rd Qu.: 8.000   3rd Qu.:44.00   3rd Qu.:1.0000   3rd Qu.:1.0000  
+##  Max.   :12.000   Max.   :99.00   Max.   :6.0000   Max.   :5.0000  
+##     CookBks          DoltYBks          RefBks           ArtBks      
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :1.0000   Median :0.0000   Median :0.0000   Median :0.0000  
+##  Mean   :0.9711   Mean   :0.5141   Mean   :0.3557   Mean   :0.4135  
+##  3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+##  Max.   :8.0000   Max.   :5.0000   Max.   :4.0000   Max.   :5.0000  
+##     GeogBks          ItalCook       ItalHAtlas         ItalArt       
+##  Min.   :0.0000   Min.   :0.000   Min.   :0.00000   Min.   :0.00000  
+##  1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.00000   1st Qu.:0.00000  
+##  Median :0.0000   Median :0.000   Median :0.00000   Median :0.00000  
+##  Mean   :0.5411   Mean   :0.169   Mean   :0.05194   Mean   :0.06838  
+##  3rd Qu.:1.0000   3rd Qu.:0.000   3rd Qu.:0.00000   3rd Qu.:0.00000  
+##  Max.   :5.0000   Max.   :2.000   Max.   :2.00000   Max.   :2.00000  
+##  Florence  
+##  No :1362  
+##  Yes: 159  
+##            
+##            
+##            
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{nrow}\NormalTok{(cbc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{nrow}\NormalTok{(cbc\_no\_purchase)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1521
+\end{verbatim}
+
+\paragraph{Sum the purchases of each book
+type.}\label{sum-the-purchases-of-each-book-type.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cbc\_sums }\OtherTok{\textless{}{-}}\NormalTok{ cbc }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarise}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{8}\SpecialCharTok{:}\DecValTok{17}\NormalTok{), sum))}
+\NormalTok{cbc\_sums}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   ChildBks YouthBks CookBks DoltYBks RefBks ArtBks GeogBks ItalCook ItalHAtlas
+## 1     1422      628    1477      782    541    629     823      257         79
+##   ItalArt
+## 1     104
+\end{verbatim}
+
+\subsubsection{Q11}\label{q11}
+
+Produce a bar chart for the counts of each of the ten books purchased
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(psych)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'psych'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:ggplot2':
+## 
+##     %+%, alpha
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{multi.hist}\NormalTok{(cbc[, }\DecValTok{4}\SpecialCharTok{:}\DecValTok{7}\NormalTok{], }\AttributeTok{nrow=}\DecValTok{2}\NormalTok{, }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{, }\AttributeTok{global =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Madhume_Evidence_HW1_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\subsubsection{Q12}\label{q12}
+
+Produce a bar chart for the counts of each of the ten books purchased
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cbc\_pivot }\OtherTok{\textless{}{-}} \FunctionTok{pivot\_longer}\NormalTok{(cbc\_sums, }\AttributeTok{cols=}\FunctionTok{c}\NormalTok{( }\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{))}
+\FunctionTok{names}\NormalTok{(cbc\_pivot) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Type"}\NormalTok{, }\StringTok{"Sum"}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{cbc\_pivot, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{y=}\NormalTok{Sum, }\AttributeTok{x=}\NormalTok{Type)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{\textquotesingle{}identity\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Madhume_Evidence_HW1_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\subsubsection{A custom function for calculating 4
+moments}\label{a-custom-function-for-calculating-4-moments}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(e1071)}
+\CommentTok{\#browser()}
+\NormalTok{calcfourstats }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
+\NormalTok{  mu }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\DecValTok{2}\NormalTok{)}
+\NormalTok{  sigma }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{sd}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\DecValTok{2}\NormalTok{)}
+\NormalTok{  skew }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{skewness}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\DecValTok{3}\NormalTok{)}
+\NormalTok{  kurt }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{kurtosis}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\DecValTok{2}\NormalTok{)}
+\NormalTok{  result }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(mu, sigma, skew, kurt)}
+  \FunctionTok{return}\NormalTok{(result)}
+\NormalTok{\}}
+
+\CommentTok{\# Col names and corresponding variable names}
+\NormalTok{columnNames }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"M"}\NormalTok{, }\StringTok{"R"}\NormalTok{, }\StringTok{"F"}\NormalTok{, }\StringTok{"FirstPurch"}\NormalTok{)}
+\NormalTok{varList }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Monetary Value"}\NormalTok{, }\StringTok{"Last Purchase"}\NormalTok{, }\StringTok{"Frequency"}\NormalTok{, }\StringTok{"First Purchase"}\NormalTok{)}
+
+\CommentTok{\# Initialize results data frame}
+\NormalTok{results }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{()}
+
+\CommentTok{\# moments for each column}
+\ControlFlowTok{for}\NormalTok{ (col }\ControlFlowTok{in}\NormalTok{ columnNames) \{}
+\NormalTok{  results }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(results, }\FunctionTok{calcfourstats}\NormalTok{(cbc\_no\_purchase[[col]]))}
+\NormalTok{\}}
+
+\CommentTok{\# Setting of row names for the results}
+\FunctionTok{rownames}\NormalTok{(results) }\OtherTok{\textless{}{-}}\NormalTok{ varList}
+
+\CommentTok{\# Print results}
+\FunctionTok{print}\NormalTok{(results)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                    mu  sigma  skew  kurt
+## Monetary Value 220.28 101.59 0.064 -0.67
+## Last Purchase   15.64   8.15 0.707 -0.06
+## Frequency        4.84   3.68 0.652 -1.04
+## First Purchase  33.44  17.52 0.976  0.23
+\end{verbatim}
+
+\subsubsection{Creating RFM factors}\label{creating-rfm-factors}
+
+\paragraph{Calculate HML cutoffs for
+RFM}\label{calculate-hml-cutoffs-for-rfm}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cbc\_rfm }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{lapply}\NormalTok{(cbc\_no\_purchase[}\FunctionTok{c}\NormalTok{(}\StringTok{"R"}\NormalTok{, }\StringTok{"F"}\NormalTok{, }\StringTok{"M"}\NormalTok{)], }
+  \ControlFlowTok{function}\NormalTok{(x) \{}
+    \FunctionTok{quantile}\NormalTok{(x, }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.33}\NormalTok{, }\FloatTok{0.67}\NormalTok{, }\FloatTok{1.00}\NormalTok{), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) \}))}
+
+\FunctionTok{rownames}\NormalTok{(cbc\_rfm) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Low Quantile"}\NormalTok{, }\StringTok{"Medium Quantile"}\NormalTok{, }\StringTok{"High Quantile"}\NormalTok{)}
+
+\CommentTok{\#Printing the percentiles}
+\FunctionTok{print}\NormalTok{(cbc\_rfm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                  R  F     M
+## Low Quantile    12  2 171.6
+## Medium Quantile 16  6 269.0
+## High Quantile   36 12 477.0
+\end{verbatim}
+
+Verify results and test subsetting
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cbc\_rfm}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                  R  F     M
+## Low Quantile    12  2 171.6
+## Medium Quantile 16  6 269.0
+## High Quantile   36 12 477.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate the 33rd percentile of the "M" column and add it to the data frame}
+\NormalTok{cbc\_rfm[}\StringTok{"33\%"}\NormalTok{, }\StringTok{"M"}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(cbc\_no\_purchase}\SpecialCharTok{$}\NormalTok{M, }\AttributeTok{probs =} \FloatTok{0.33}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+ 
+\NormalTok{cbc\_rfm[}\StringTok{"33\%"}\NormalTok{, }\StringTok{"M"}\NormalTok{] }\CommentTok{\#What is the 33rd percentile of M?}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 171.6
+\end{verbatim}
+
+Create three new variables for HML quantiles of RFM variables
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cbcRFM }\OtherTok{\textless{}{-}}\NormalTok{ cbc\_no\_purchase }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{rRFM =} \FunctionTok{if\_else}\NormalTok{(R }\SpecialCharTok{\textless{}=}\NormalTok{ cbc\_rfm[}\StringTok{"Low Quantile"}\NormalTok{, }\StringTok{"R"}\NormalTok{], }\StringTok{"L"}\NormalTok{,}
+                   \FunctionTok{if\_else}\NormalTok{(R }\SpecialCharTok{\textgreater{}=}\NormalTok{ cbc\_rfm[}\StringTok{"High Quantile"}\NormalTok{, }\StringTok{"R"}\NormalTok{], }\StringTok{"H"}\NormalTok{, }\StringTok{"M"}\NormalTok{)),}
+    
+    \AttributeTok{fRFM =} \FunctionTok{if\_else}\NormalTok{(F }\SpecialCharTok{\textless{}=}\NormalTok{ cbc\_rfm[}\StringTok{"Low Quantile"}\NormalTok{, }\StringTok{"F"}\NormalTok{], }\StringTok{"L"}\NormalTok{,}
+                   \FunctionTok{if\_else}\NormalTok{(F }\SpecialCharTok{\textgreater{}=}\NormalTok{ cbc\_rfm[}\StringTok{"High Quantile"}\NormalTok{, }\StringTok{"F"}\NormalTok{], }\StringTok{"H"}\NormalTok{, }\StringTok{"M"}\NormalTok{)),}
+    
+    \AttributeTok{mRFM =} \FunctionTok{if\_else}\NormalTok{(M }\SpecialCharTok{\textless{}=}\NormalTok{ cbc\_rfm[}\StringTok{"Low Quantile"}\NormalTok{, }\StringTok{"M"}\NormalTok{], }\StringTok{"L"}\NormalTok{,}
+                   \FunctionTok{if\_else}\NormalTok{(M }\SpecialCharTok{\textgreater{}=}\NormalTok{ cbc\_rfm[}\StringTok{"High Quantile"}\NormalTok{, }\StringTok{"M"}\NormalTok{], }\StringTok{"H"}\NormalTok{, }\StringTok{"M"}\NormalTok{))}
+\NormalTok{  )}
+
+\CommentTok{\# View the updated dataset with RFM factors}
+\FunctionTok{head}\NormalTok{(cbcRFM)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Seq  ID Gender   M  R F FirstPurch ChildBks YouthBks CookBks DoltYBks RefBks
+## 1   1   2 Female 138 28 3         40        0        1       0        1      0
+## 2   2  30   Male 240 14 1         14        1        0       0        0      0
+## 4   4  89   Male 348  2 7         38        1        1       1        0      1
+## 5   5  96 Female 239 20 2         28        0        0       1        0      0
+## 6   6 120   Male 253 10 4         20        1        0       0        0      0
+## 7   7 128   Male 118 16 1         16        0        1       0        0      0
+##   ArtBks GeogBks ItalCook ItalHAtlas ItalArt Florence rRFM fRFM mRFM
+## 1      0       1        0          0       0       No    M    M    L
+## 2      0       0        0          0       0       No    M    L    M
+## 4      0       1        0          0       0       No    L    M    M
+## 5      0       1        0          0       0       No    M    L    M
+## 6      1       0        0          0       0      Yes    L    M    M
+## 7      0       0        0          0       0       No    M    L    L
+\end{verbatim}
+
+Convert the new HML variables into ordered factors
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Convert the new HML variables into ordered factors}
+\NormalTok{cbcRFM[}\FunctionTok{c}\NormalTok{(}\StringTok{"rRFM"}\NormalTok{, }\StringTok{"fRFM"}\NormalTok{, }\StringTok{"mRFM"}\NormalTok{)] }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{lapply}\NormalTok{(cbcRFM[}\FunctionTok{c}\NormalTok{(}\StringTok{"rRFM"}\NormalTok{, }\StringTok{"fRFM"}\NormalTok{, }\StringTok{"mRFM"}\NormalTok{)], }
+  \ControlFlowTok{function}\NormalTok{(x) \{}
+    \FunctionTok{factor}\NormalTok{(x, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"L"}\NormalTok{, }\StringTok{"M"}\NormalTok{, }\StringTok{"H"}\NormalTok{), }\AttributeTok{ordered =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  \}))}
+
+\CommentTok{\# View the updated dataset}
+\FunctionTok{head}\NormalTok{(cbcRFM)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Seq  ID Gender   M  R F FirstPurch ChildBks YouthBks CookBks DoltYBks RefBks
+## 1   1   2 Female 138 28 3         40        0        1       0        1      0
+## 2   2  30   Male 240 14 1         14        1        0       0        0      0
+## 4   4  89   Male 348  2 7         38        1        1       1        0      1
+## 5   5  96 Female 239 20 2         28        0        0       1        0      0
+## 6   6 120   Male 253 10 4         20        1        0       0        0      0
+## 7   7 128   Male 118 16 1         16        0        1       0        0      0
+##   ArtBks GeogBks ItalCook ItalHAtlas ItalArt Florence rRFM fRFM mRFM
+## 1      0       1        0          0       0       No    M    M    L
+## 2      0       0        0          0       0       No    M    L    M
+## 4      0       1        0          0       0       No    L    M    M
+## 5      0       1        0          0       0       No    M    L    M
+## 6      1       0        0          0       0      Yes    L    M    M
+## 7      0       0        0          0       0       No    M    L    L
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(cbcRFM)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    1521 obs. of  21 variables:
+##  $ Seq       : num  1 2 4 5 6 7 8 9 10 12 ...
+##  $ ID        : num  2 30 89 96 120 128 131 139 177 188 ...
+##  $ Gender    : Factor w/ 2 levels "Female","Male": 1 2 2 1 2 2 2 2 2 2 ...
+##  $ M         : num  138 240 348 239 253 118 326 207 294 219 ...
+##  $ R         : num  28 14 2 20 10 16 14 12 10 32 ...
+##  $ F         : num  3 1 7 2 4 1 2 3 12 2 ...
+##  $ FirstPurch: num  40 14 38 28 20 16 22 20 58 40 ...
+##  $ ChildBks  : num  0 1 1 0 1 0 0 1 4 0 ...
+##  $ YouthBks  : num  1 0 1 0 0 1 1 0 1 0 ...
+##  $ CookBks   : num  0 0 1 1 0 0 0 0 4 1 ...
+##  $ DoltYBks  : num  1 0 0 0 0 0 0 1 0 0 ...
+##  $ RefBks    : num  0 0 1 0 0 0 1 0 0 0 ...
+##  $ ArtBks    : num  0 0 0 0 1 0 0 0 0 0 ...
+##  $ GeogBks   : num  1 0 1 1 0 0 0 0 2 1 ...
+##  $ ItalCook  : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ ItalHAtlas: num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ ItalArt   : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Florence  : Factor w/ 2 levels "No","Yes": 1 1 1 1 2 1 1 1 1 1 ...
+##  $ rRFM      : Ord.factor w/ 3 levels "L"<"M"<"H": 2 2 1 2 1 2 2 1 1 2 ...
+##  $ fRFM      : Ord.factor w/ 3 levels "L"<"M"<"H": 2 1 2 1 2 1 1 2 3 1 ...
+##  $ mRFM      : Ord.factor w/ 3 levels "L"<"M"<"H": 1 2 2 2 2 1 2 2 2 2 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Summarize the data}
+\NormalTok{sumTable }\OtherTok{\textless{}{-}}\NormalTok{ cbcRFM }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(rRFM, fRFM, mRFM) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{meanM =} \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(M, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\DecValTok{2}\NormalTok{), }\AttributeTok{.groups =} \StringTok{\textquotesingle{}drop\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Display the summary table}
+\FunctionTok{print}\NormalTok{(sumTable)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 15 x 4
+##    rRFM  fRFM  mRFM  meanM
+##    <ord> <ord> <ord> <dbl>
+##  1 L     L     L     110. 
+##  2 L     L     M     258. 
+##  3 L     M     L     125. 
+##  4 L     M     M     285. 
+##  5 L     H     M     310. 
+##  6 L     H     H     477  
+##  7 M     L     L      93.3
+##  8 M     L     M     244. 
+##  9 M     M     L     127. 
+## 10 M     M     M     297. 
+## 11 M     H     M     300. 
+## 12 H     L     L      89.4
+## 13 H     L     M     238. 
+## 14 H     M     M     302. 
+## 15 H     H     M     444
+\end{verbatim}
+
+\paragraph{Make three tables, one for each level of factor
+mRFM}\label{make-three-tables-one-for-each-level-of-factor-mrfm}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \FunctionTok{c}\NormalTok{(}\StringTok{"L"}\NormalTok{, }\StringTok{"M"}\NormalTok{, }\StringTok{"H"}\NormalTok{)) \{}
+\NormalTok{  shortTable }\OtherTok{\textless{}{-}} \FunctionTok{xtabs}\NormalTok{(meanM }\SpecialCharTok{\textasciitilde{}}\NormalTok{ rRFM }\SpecialCharTok{+}\NormalTok{ fRFM, sumTable }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(mRFM }\SpecialCharTok{==}\NormalTok{ i)) }
+  \FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{\textquotesingle{}Monetary Value Segment =\textquotesingle{}}\NormalTok{, i))}
+  \FunctionTok{print}\NormalTok{(shortTable)}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{) }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Monetary Value Segment = L"
+##     fRFM
+## rRFM      L      M      H
+##    L 109.58 124.76   0.00
+##    M  93.32 126.86   0.00
+##    H  89.38   0.00   0.00
+## 
+## [1] "Monetary Value Segment = M"
+##     fRFM
+## rRFM      L      M      H
+##    L 257.97 285.38 309.94
+##    M 243.85 297.04 300.45
+##    H 238.40 302.40 444.00
+## 
+## [1] "Monetary Value Segment = H"
+##     fRFM
+## rRFM   L   M   H
+##    L   0   0 477
+##    M   0   0   0
+##    H   0   0   0
+\end{verbatim}
+
+\subsubsection{Q14}\label{q14}
+
+Median monetary value per visit by gender
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{visitValue }\OtherTok{\textless{}{-}}\NormalTok{ cbcRFM }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(}\FunctionTok{factor}\NormalTok{(Gender, }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{medianM =} \FunctionTok{round}\NormalTok{(}\FunctionTok{median}\NormalTok{(M }\SpecialCharTok{/}\NormalTok{ F), }\DecValTok{2}\NormalTok{))}
+
+\NormalTok{visitValue}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 2
+##   `factor(Gender, labels = c("Female", "Male"))` medianM
+##   <fct>                                            <dbl>
+## 1 Female                                            48.3
+## 2 Male                                              48.5
+\end{verbatim}
+
+\paragraph{Q15}\label{q15}
+
+Bubble plot of M by R by Gender
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(cbcRFM, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ R, }\AttributeTok{y =}\NormalTok{ M, }\AttributeTok{col =} \FunctionTok{factor}\NormalTok{(Gender, }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{)), }\AttributeTok{size =}\NormalTok{ FirstPurch)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{20}\NormalTok{) }\SpecialCharTok{+}
+  
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Recency"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Monetary Value"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(Gender, }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{)), }\AttributeTok{labeller =}\NormalTok{ label\_parsed) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{, }\AttributeTok{legend.box =} \StringTok{"vertical"}\NormalTok{, }
+        \AttributeTok{legend.key =} \FunctionTok{element\_rect}\NormalTok{(}\AttributeTok{colour =} \StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{, }\AttributeTok{fill =} \StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Madhume_Evidence_HW1_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+\end{document}

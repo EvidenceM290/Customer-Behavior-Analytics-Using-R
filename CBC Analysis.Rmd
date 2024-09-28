@@ -1,0 +1,293 @@
+---
+title: "Madhume_Evidence_HW1 "
+author: "Evidence Madhume"
+output:
+  
+  pdf_document: default
+  html_document: default
+  date: "Fall A 2024"
+  word_document: default
+---
+<!-- name of chunk = set_global_options and include chunk in doc -->
+```{r set_global_options, echo=TRUE}
+ knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r echo=TRUE}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(readxl)
+
+
+cbc <- as.data.frame(read_excel("C:\\Users\\actua\\OneDrive\\SMU - MSBA 2024\\Programming for Analytics - ITOM 6253\\Assignment 1\\Charles_BookClub_modified.xls"))
+cbc <- cbc[,1:18] 
+ str(cbc)
+summary(cbc)
+
+```
+#### Count the unique values of each variable.
+```{r}
+cbc_counts <- cbc %>% summarise_all(~ n_distinct(.))
+cbc_counts
+```
+
+#### Convert Gender and Florence to Factors
+```{r}
+cbc$Gender <- factor(cbc$Gender, levels = c(0, 1), labels =  c("Female", "Male"))
+
+cbc$Florence <- factor(cbc$Florence, levels = c(0, 1), labels =  c("No", "Yes"))
+```
+
+#### Identify the numeric columns for which outlier detection is desired
+```{r}
+# Check if the columns M and R exist in the data frame
+if (!("M" %in% names(cbc)) || !("R" %in% names(cbc))) {
+  stop("Columns M and R do not exist in the data frame.")
+}
+
+# Check the types of M and R
+is_numeric_M <- is.numeric(cbc$M)
+is_numeric_R <- is.numeric(cbc$R)
+
+# Print results
+cat("Is column M numeric? ", is_numeric_M, "\n")
+cat("Is column R numeric? ", is_numeric_R, "\n")
+
+# If both are numeric, you can proceed with outlier detection
+if (is_numeric_M && is_numeric_R) {
+  cat("Both columns M and R are numeric. Proceed with outlier detection.\n")
+} else {
+  cat("One or both columns are not numeric. Please check the data types.\n")
+}
+
+outvars <- c("M", "R", "F", "FirstPurch")
+
+```
+
+
+#### Find outliers and set them to missing
+Note the use of the *anonymous* function in the following code:
+```{r}
+# Checking for non-numeric values in columns M and R
+cbc$M <- as.numeric(cbc$M)  
+cbc$R <- as.numeric(cbc$R)  
+cbc$M[cbc$M <= 0] <- NA  
+
+# Printing of NA values 
+cat("Number of NA values in M:", sum(is.na(cbc$M)), "\n")
+cat("Number of NA values in R:", sum(is.na(cbc$R)), "\n")
+
+
+
+
+```
+
+#### Summary also counts the number of missing values
+```{r}
+
+summary(cbc)
+
+```
+#### Identify variables for which imputation of missing values is desired
+```{r}
+# find it in all data frames 
+missvars <- sapply(cbc, function(x) sum(is.na(x)))
+
+# (the values are missing in the columns)
+vars_with_na <- names(missvars[missvars > 0])
+
+# Printing of columns that need imputation  
+cat("Columns with missing values that require imputation:\n")
+print(vars_with_na)
+
+
+```
+
+#### Impute missing values of columns with missing values
+```{r}
+
+cbc$M[is.na(cbc$M)] <- median(cbc$M, na.rm = TRUE)  
+cbc$R[is.na(cbc$R)] <- median(cbc$R, na.rm = TRUE)  
+
+summary(cbc)
+
+
+```
+
+#### Delete rows for which there are no books purchased.
+```{r}
+cbc_no_purchase <- cbc[rowSums(cbc[8: 14] > 0) > 0, ]
+summary(cbc_no_purchase)
+nrow(cbc)
+nrow(cbc_no_purchase)
+
+```
+
+#### Sum the purchases of each book type.
+```{r}
+cbc_sums <- cbc %>% summarise(across(c(8:17), sum))
+cbc_sums
+```
+
+### Q11
+
+Produce a bar chart for the counts of each of the ten books purchased
+
+```{r}
+library(psych)
+multi.hist(cbc[, 4:7], nrow=2, ncol=2, global = FALSE)
+```
+
+### Q12 
+
+Produce a bar chart for the counts of each of the ten books purchased
+
+```{r}
+cbc_pivot <- pivot_longer(cbc_sums, cols=c( 1:10))
+names(cbc_pivot) <- c("Type", "Sum")
+
+ggplot(data=cbc_pivot, aes(y=Sum, x=Type)) +
+  geom_bar(stat = 'identity')
+```
+
+
+### A custom function for calculating 4 moments
+
+```{r}
+library(e1071)
+#browser()
+calcfourstats <- function(x) {
+  mu <- round(mean(x, na.rm = TRUE), 2)
+  sigma <- round(sd(x, na.rm = TRUE), 2)
+  skew <- round(skewness(x, na.rm = TRUE), 3)
+  kurt <- round(kurtosis(x, na.rm = TRUE), 2)
+  result <- data.frame(mu, sigma, skew, kurt)
+  return(result)
+}
+
+# Col names and corresponding variable names
+columnNames <- c("M", "R", "F", "FirstPurch")
+varList <- c("Monetary Value", "Last Purchase", "Frequency", "First Purchase")
+
+# Initialize results data frame
+results <- data.frame()
+
+# moments for each column
+for (col in columnNames) {
+  results <- rbind(results, calcfourstats(cbc_no_purchase[[col]]))
+}
+
+# Setting of row names for the results
+rownames(results) <- varList
+
+# Print results
+print(results)
+
+```
+
+### Creating RFM factors
+#### Calculate HML cutoffs for RFM
+```{r}
+cbc_rfm <- data.frame(lapply(cbc_no_purchase[c("R", "F", "M")], 
+  function(x) {
+    quantile(x, probs = c(0.33, 0.67, 1.00), na.rm = TRUE) }))
+
+rownames(cbc_rfm) <- c("Low Quantile", "Medium Quantile", "High Quantile")
+
+#Printing the percentiles
+print(cbc_rfm)
+```
+
+Verify results and test subsetting    
+```{r}
+cbc_rfm
+
+# Calculate the 33rd percentile of the "M" column and add it to the data frame
+cbc_rfm["33%", "M"] <- quantile(cbc_no_purchase$M, probs = 0.33, na.rm = TRUE)
+ 
+cbc_rfm["33%", "M"] #What is the 33rd percentile of M?
+```
+
+Create three new variables for HML quantiles of RFM variables
+```{r}
+cbcRFM <- cbc_no_purchase %>%
+  mutate(
+    rRFM = if_else(R <= cbc_rfm["Low Quantile", "R"], "L",
+                   if_else(R >= cbc_rfm["High Quantile", "R"], "H", "M")),
+    
+    fRFM = if_else(F <= cbc_rfm["Low Quantile", "F"], "L",
+                   if_else(F >= cbc_rfm["High Quantile", "F"], "H", "M")),
+    
+    mRFM = if_else(M <= cbc_rfm["Low Quantile", "M"], "L",
+                   if_else(M >= cbc_rfm["High Quantile", "M"], "H", "M"))
+  )
+
+# View the updated dataset with RFM factors
+head(cbcRFM)
+
+```
+Convert the new HML variables into ordered factors
+```{r}
+# Convert the new HML variables into ordered factors
+cbcRFM[c("rRFM", "fRFM", "mRFM")] <- data.frame(lapply(cbcRFM[c("rRFM", "fRFM", "mRFM")], 
+  function(x) {
+    factor(x, levels = c("L", "M", "H"), ordered = TRUE)
+  }))
+
+# View the updated dataset
+head(cbcRFM)
+str(cbcRFM)
+
+# Summarize the data
+sumTable <- cbcRFM %>% 
+  group_by(rRFM, fRFM, mRFM) %>%
+  summarize(meanM = round(mean(M, na.rm = TRUE), 2), .groups = 'drop')
+
+# Display the summary table
+print(sumTable)
+
+```
+
+#### Make three tables, one for each level of factor mRFM
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+for (i in c("L", "M", "H")) {
+  shortTable <- xtabs(meanM ~ rRFM + fRFM, sumTable %>% filter(mRFM == i)) 
+  print(paste('Monetary Value Segment =', i))
+  print(shortTable)
+  cat("\n") 
+}
+
+```
+
+### Q14
+
+Median monetary value per visit by gender
+
+```{r}
+visitValue <- cbcRFM %>%
+  group_by(factor(Gender, labels = c("Female", "Male"))) %>%
+  summarize(medianM = round(median(M / F), 2))
+
+visitValue
+```
+
+#### Q15
+
+Bubble plot of M by R by Gender
+
+```{r}
+ggplot(cbcRFM, aes(x = R, y = M, col = factor(Gender, labels = c("Female", "Male")), size = FirstPurch)) +
+  geom_point(alpha = .20) +
+  
+  labs(x = "Recency", y = "Monetary Value") +
+  facet_wrap(~ factor(Gender, labels = c("Female", "Male")), labeller = label_parsed) +
+  theme(legend.position = "bottom", legend.box = "vertical", 
+        legend.key = element_rect(colour = 'white', fill = 'white'))
+```
+
+
+
+
