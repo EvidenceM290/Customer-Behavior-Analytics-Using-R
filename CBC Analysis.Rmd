@@ -131,16 +131,12 @@ cbc_sums <- cbc %>% summarise(across(c(8:17), sum))
 cbc_sums
 ```
 
-### Q11
-
 Produce a bar chart for the counts of each of the ten books purchased
 
 ```{r}
 library(psych)
 multi.hist(cbc[, 4:7], nrow=2, ncol=2, global = FALSE)
 ```
-
-### Q12 
 
 Produce a bar chart for the counts of each of the ten books purchased
 
@@ -262,7 +258,6 @@ for (i in c("L", "M", "H")) {
 
 ```
 
-### Q14
 
 Median monetary value per visit by gender
 
@@ -273,8 +268,6 @@ visitValue <- cbcRFM %>%
 
 visitValue
 ```
-
-#### Q15
 
 Bubble plot of M by R by Gender
 
